@@ -1,6 +1,8 @@
-.PHONY: all clean
+.PHONY: main clean
 
-all:main
+a.out: main.o server.o
+	@gcc $^ -o $@
+	@rm -f *.o
 
 clean:
-	rm main
+	@rm -rf *.out *.o core
