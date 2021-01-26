@@ -1,9 +1,28 @@
-CC:= gcc
-CFLAGS:= -g -Wall
-.PHONY: main clean
+SUBDIR:= src obj
+SRCDIR:= src
+INCDIR:= $(PWD)/include
 
-a.out: main.o server.o
-	gcc $^ -o $@
+CC:= gcc
+CFLAGS:= -g -Wall -I $(INCDIR)
+BINDIR:= $(PWD)/bin
+OBJDIR:= $(PWD)/obj
+BIN:= test.out
+
+export CC CFLAGS BINDIR OBJDIR BIN
+
+.PHONY: all clean
+all: $(BINDIR) $(SUBDIR)
+
+$(BINDIR):
+	mkdir -p bin
+$(SUBDIR):ECHO
+	make -C $@
+ECHO:
+	@echo comlile...
 
 clean:
-	@rm -rf *.out *.o core
+	@rm -rf bin
+	@rm -rf $(OBJDIR)/*.o $(OBJDIR)/*.out 
+	@rm -rf $(SRCDIR)/*.o 
+
+
